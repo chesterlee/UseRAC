@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 // example for filter, interval, take, map, publish, then, flattenMap, deliverOn, replay(RACMulticastConnection)
+// TODO:takeUntil
 @interface SignalBasicViewController : UIViewController
 
 @end
