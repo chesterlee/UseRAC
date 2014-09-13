@@ -111,9 +111,75 @@
 
 - (IBAction)mapTapped:(UIButton *)sender {
     
+    RACSignal *signalOne =[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [subscriber sendNext:@YES];
+        [subscriber sendCompleted];
+        return nil;
+    }];
+    
+    RACSignal *signalTwo = [signalOne map:^id(NSNumber *value)
+    {
+        if ([value boolValue])
+        {
+            return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+                [subscriber sendNext:@"signalOne make it Yes!!"];
+                [subscriber sendCompleted];
+                return nil;
+            }];
+        }
+        return @NO;
+    }];
+    
+    //subscribe  signalTwo will get the mapped value which is a signal
+    [signalTwo subscribeNext:^(RACSignal *signal) {
+
+        // subscribe the mapped signal
+        [signal subscribeNext:^(NSString *string) {
+            NSLog(@"%@",string);
+        } error:^(NSError *error) {
+
+        } completed:^{
+            NSLog(@"complete0");
+        }];
+
+    } error:^(NSError *error) {
+        
+    } completed:^{
+    
+        NSLog(@"complete1");
+    
+    }];
+    
+
+    //TODO:flatten map
+    
+    
 }
 
 - (IBAction)thenTapped:(id)sender {
+    
+    
+    RACSignal *signal1 = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [subscriber sendNext:@""];
+        [subscriber sendCompleted];
+        return nil;
+    }];
+    
+    RACSignal *signal2 = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [subscriber sendNext:@"2"];
+        return nil;
+    }];
+    
+    [[signal1 then:^RACSignal *{
+        return signal2;
+    }] subscribeNext:^(id x) {
+        NSLog(@"%@",x);
+    } error:^(NSError *error) {
+        
+    } completed:^{
+        
+    }];
+    
 }
 
 - (IBAction)publishTapped:(id)sender {
