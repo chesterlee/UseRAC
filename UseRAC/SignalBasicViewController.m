@@ -7,10 +7,21 @@
 //
 
 #import "SignalBasicViewController.h"
+#import "ReactiveCocoa.h"
+#import "RACEXTScope.h"
 
-// filter, interval, take, map, publish, then, flattenMap, deliverOn, replay(RACMulticastConnection)
+
 
 @interface SignalBasicViewController ()
+- (IBAction)filterTapped:(id)sender;
+- (IBAction)intervalTapped:(id)sender;
+- (IBAction)takeTapped:(id)sender;
+- (IBAction)mapTapped:(id)sender;
+- (IBAction)thenTapped:(id)sender;
+- (IBAction)publishTapped:(id)sender;
+- (IBAction)deliverOnTapped:(id)sender;
+- (IBAction)replayTapped:(id)sender;
+- (IBAction)mixThingsTapped:(id)sender;
 
 @end
 
@@ -36,10 +47,40 @@
     [super didReceiveMemoryWarning];
 }
 
--(void)makeConnection
-{
+#pragma mark - ---- Callbacks ----
+
+- (IBAction)filterTapped:(UIButton *)sender {
+    
+    
+    
+    
     
 }
 
+- (IBAction)intervalTapped:(id)sender {
+}
 
+- (IBAction)takeTapped:(id)sender {
+}
+
+- (IBAction)mapTapped:(UIButton *)sender {
+}
+
+- (IBAction)thenTapped:(id)sender {
+}
+
+- (IBAction)publishTapped:(id)sender {
+}
+
+- (IBAction)deliverOnTapped:(id)sender {
+}
+
+- (IBAction)replayTapped:(id)sender {
+}
+
+- (IBAction)mixThingsTapped:(id)sender {
+}
+
+- (IBAction)rePlay:(id)sender {
+}
 @end
