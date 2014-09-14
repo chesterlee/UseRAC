@@ -223,17 +223,70 @@
 
 - (IBAction)publishTapped:(id)sender
 {
+    RACSignal *signal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        NSLog(@"side effect");
+        [subscriber sendNext:@"aaa"];
+        [subscriber sendCompleted];
+        return nil;
+    }];
     
+    RACMulticastConnection *connection = [signal publish];
+    
+    // connection make side effect triggered only once
+    [[connection autoconnect] subscribeNext:^(id x) {
+        NSLog(@"sub1 get next");
+    } completed:^{
+        NSLog(@"sub1 get complete");
+    }];
+
+    [[connection autoconnect] subscribeNext:^(id x) {
+        NSLog(@"sub2 will NOT get next");
+    } completed:^{
+        NSLog(@"sub2 will NOT get complete");
+    }];
+}
+
+- (IBAction)deliverOnTapped:(id)sender
+{
+    RACSignal *signal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [subscriber sendNext:@"sendSomeThings"];
+        [subscriber sendCompleted];
+        return nil;
+    }];
+    
+    // It's using just like the GCD! 
+    [[signal deliverOn:[RACScheduler immediateScheduler]] subscribeNext:^(id x) {
+        NSLog(@"0%@", x);
+    } completed:^{
+    }];
+    
+    [[signal deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
+        NSLog(@"1%@", x);
+    } completed:^{
+        
+    }];
+    
+    [[signal deliverOn:[RACScheduler schedulerWithPriority:RACSchedulerPriorityBackground]] subscribeNext:^(id x) {
+        NSLog(@"2%@", x);
+    } completed:^{
+        
+    }];
+    
+    [[signal deliverOn:[RACScheduler schedulerWithPriority:RACSchedulerPriorityHigh]] subscribeNext:^(id x) {
+        NSLog(@"3%@", x);
+    } completed:^{
+        
+    }];
+}
+
+- (IBAction)replayTapped:(id)sender
+{
     
 }
 
-- (IBAction)deliverOnTapped:(id)sender {
-}
-
-- (IBAction)replayTapped:(id)sender {
-}
-
-- (IBAction)mixThingsTapped:(id)sender {
+- (IBAction)mixThingsTapped:(id)sender
+{
+    
 }
 
 
