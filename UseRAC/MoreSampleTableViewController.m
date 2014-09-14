@@ -37,8 +37,8 @@
     [super viewDidLoad];
     self.title = @"More To Say";
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"BasicCell"];
-    self.cellTitles = @[@"SignalBasic", @"SomeHelper", @"Network"];
-    self.segueIDs = @[@"SignalSegue",@"HelperSegue",@"NetworkSegue"];
+    self.cellTitles = @[@"SignalBasic", @"Network"];
+    self.segueIDs = @[@"SignalSegue",@"NetworkSegue"];
 }
 
 - (void)didReceiveMemoryWarning

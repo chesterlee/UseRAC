@@ -260,7 +260,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uru-Uo-uve" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1472" y="248"/>
+            <point key="canvasLocation" x="1439" y="422"/>
         </scene>
         <!--More Sample Table View Controller-->
         <scene sceneID="pnZ-tV-GpK">
@@ -288,7 +288,6 @@
                     <navigationItem key="navigationItem" id="2fr-ns-abJ"/>
                     <connections>
                         <segue destination="DFS-2V-63R" kind="push" identifier="SignalSegue" id="DOM-3n-Oog"/>
-                        <segue destination="A42-RI-Ezs" kind="push" identifier="HelperSegue" id="n7q-Aa-LVa"/>
                         <segue destination="aFa-uN-CJO" kind="push" identifier="NetworkSegue" id="Qwq-1O-pdB"/>
                     </connections>
                 </tableViewController>
@@ -313,26 +312,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ug9-6N-RCb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1472" y="1606"/>
-        </scene>
-        <!--Helper View Controller-->
-        <scene sceneID="xh8-Uh-NiD">
-            <objects>
-                <viewController id="A42-RI-Ezs" customClass="HelperViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Pe9-I9-Tol"/>
-                        <viewControllerLayoutGuide type="bottom" id="Cmr-SV-fYe"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fVJ-Co-KeX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="ANx-5g-c33"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rOY-fN-OdP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1472" y="920"/>
+            <point key="canvasLocation" x="1439" y="1106"/>
         </scene>
         <!--System Item View Controller-->
         <scene sceneID="gpq-QI-ml5">
