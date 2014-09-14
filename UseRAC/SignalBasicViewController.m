@@ -60,7 +60,7 @@
         return nil;
     }];
 
-    // filter means add adjustment of wheather the value should pass to the subscriber
+    // filter means add adjustment of whether the value should pass to the subscriber
     [[signal filter:^BOOL(NSString *value) {
         
         return [value hasSuffix:@"K"];
@@ -111,8 +111,9 @@
 
 - (IBAction)mapTapped:(UIButton *)sender {
     
+    // ========== Map with any value =========//
     RACSignal *signalOne =[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        [subscriber sendNext:@YES];
+        [subscriber sendNext:@NO]; //Maybe you can change the value to @YES
         [subscriber sendCompleted];
         return nil;
     }];
@@ -131,58 +132,99 @@
     }];
     
     //subscribe  signalTwo will get the mapped value which is a signal
-    [signalTwo subscribeNext:^(RACSignal *signal) {
+    [signalTwo subscribeNext:^(id value) {
 
-        // subscribe the mapped signal
-        [signal subscribeNext:^(NSString *string) {
-            NSLog(@"%@",string);
-        } error:^(NSError *error) {
-
-        } completed:^{
-            NSLog(@"complete0");
-        }];
+        if ([value isKindOfClass:[RACSignal class]])
+        {
+            RACSignal *signal = value;
+            // subscribe the mapped signal
+            [signal subscribeNext:^(NSString *string) {
+                NSLog(@"%@",string);
+            } error:^(NSError *error) {
+                
+            } completed:^{
+                NSLog(@"complete1");
+            }];
+        }
+        else
+        {
+            NSLog(@"%@", value);
+        }
+        
 
     } error:^(NSError *error) {
         
     } completed:^{
     
-        NSLog(@"complete1");
+        NSLog(@"complete2");
     
     }];
     
 
-    //TODO:flatten map
-    
-    
-}
-
-- (IBAction)thenTapped:(id)sender {
-    
-    
-    RACSignal *signal1 = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        [subscriber sendNext:@""];
+    // ========== flatten map with any RACStream ========== //
+    RACSignal *signalThree = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [subscriber sendNext:@"Three Over"];
         [subscriber sendCompleted];
         return nil;
     }];
     
-    RACSignal *signal2 = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        [subscriber sendNext:@"2"];
-        return nil;
-    }];
-    
-    [[signal1 then:^RACSignal *{
-        return signal2;
+    [[signalThree flattenMap:^RACStream *(id value) {
+        
+        RACSignal *sos = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            [subscriber sendNext:@"Intern"];
+            [subscriber sendCompleted];
+            return nil;
+        }];
+        return sos;
     }] subscribeNext:^(id x) {
         NSLog(@"%@",x);
     } error:^(NSError *error) {
         
     } completed:^{
+        NSLog(@"complete3");
+    }];
+}
+
+- (IBAction)thenTapped:(id)sender
+{
+    RACSignal *signal1 = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        NSLog(@"signal will do send next");
+        [subscriber sendNext:@""];
+        NSLog(@"signal did do send next");
         
+        NSLog(@"signal will make completed");
+        [subscriber sendCompleted];
+        NSLog(@"signal made completed");
+        return nil;
+    }];
+    
+    RACSignal *signal2 = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [subscriber sendNext:@"2"];
+        [subscriber sendCompleted];
+        return nil;
+    }];
+    
+    // you can see from the log below, when signal send completed, 'then' works
+    [[signal1 then:^RACSignal *{
+        
+        NSLog(@"after signal1 is completed!");
+        return signal2;
+        
+    }] subscribeNext:^(NSString *string) {
+        
+        NSLog(@"value from signal2 = %@", string);
+    } error:^(NSError *error) {
+        
+    } completed:^{
+        NSLog(@"signal2 completed");
     }];
     
 }
 
-- (IBAction)publishTapped:(id)sender {
+- (IBAction)publishTapped:(id)sender
+{
+    
+    
 }
 
 - (IBAction)deliverOnTapped:(id)sender {
