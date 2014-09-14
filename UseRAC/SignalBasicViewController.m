@@ -20,6 +20,7 @@
 - (IBAction)publishTapped:(id)sender;
 - (IBAction)deliverOnTapped:(id)sender;
 - (IBAction)replayTapped:(id)sender;
+- (IBAction)takeUntilTapped:(id)sender;
 - (IBAction)mixThingsTapped:(id)sender;
 
 @end
@@ -62,24 +63,17 @@
 
     // filter means add adjustment of whether the value should pass to the subscriber
     [[signal filter:^BOOL(NSString *value) {
-        
         return [value hasSuffix:@"K"];
-        
     }] subscribeNext:^(NSString *value) {
-        
         NSLog(@"I got the %@", value);
-
     } completed:^{
-    
         NSLog(@"Complete");
-        
     }];
 }
 
 - (IBAction)intervalTapped:(id)sender
 {
     // signal trigered every interval time, like timer
-    
     RACDisposable *dispose = [[RACSignal interval:1 onScheduler:[RACScheduler scheduler]] subscribeNext:^(id x) {
         NSLog(@"trigered!");
     }];
@@ -91,9 +85,10 @@
 }
 
 
-- (IBAction)takeTapped:(id)sender {
-    
+- (IBAction)takeTapped:(id)sender
+{
     static NSUInteger count = 0;
+    
     // take 5 times
     NSUInteger takeTimes = 5;
     
@@ -150,16 +145,11 @@
         {
             NSLog(@"%@", value);
         }
-        
-
     } error:^(NSError *error) {
         
     } completed:^{
-    
         NSLog(@"complete2");
-    
     }];
-    
 
     // ========== flatten map with any RACStream ========== //
     RACSignal *signalThree = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
@@ -254,7 +244,7 @@
         return nil;
     }];
     
-    // It's using just like the GCD! 
+    // It's using just like the GCD!
     [[signal deliverOn:[RACScheduler immediateScheduler]] subscribeNext:^(id x) {
         NSLog(@"0%@", x);
     } completed:^{
@@ -281,7 +271,42 @@
 
 - (IBAction)replayTapped:(id)sender
 {
+    RACSignal *signal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        NSLog(@"side effect");
+        [subscriber sendNext:@"effect"];
+        [subscriber sendCompleted];
+        return nil;
+    }];
     
+    RACSignal *sig = [signal replay];
+    [sig subscribeNext:^(id x) {
+        NSLog(@"0%@",x);
+    } completed:^{
+        NSLog(@"complete");
+    }];
+    
+    [sig subscribeNext:^(id x) {
+        NSLog(@"1%@",x);
+    } completed:^{
+        NSLog(@"complete");
+    }];
+}
+
+- (IBAction)takeUntilTapped:(id)sender
+{
+    RACSignal *signal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [subscriber sendNext:@"value"];
+            [subscriber sendCompleted];
+        });
+        return nil;
+    }];
+    
+    //if signal send the next or complete the interval signal will stop
+    [[[RACSignal interval:0.5 onScheduler:[RACScheduler scheduler]] takeUntil:signal] subscribeNext:^(id x) {
+        NSLog(@"triggered");
+    } completed:^{
+    }];
 }
 
 - (IBAction)mixThingsTapped:(id)sender
