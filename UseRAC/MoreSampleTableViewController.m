@@ -35,7 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"More To Say";
+    self.title = @"More";
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"BasicCell"];
     self.cellTitles = @[@"SignalBasic", @"Network"];
     self.segueIDs = @[@"SignalSegue",@"NetworkSegue"];
@@ -59,6 +59,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BasicCell" forIndexPath:indexPath];
     cell.textLabel.text = self.cellTitles[indexPath.row];
     cell.textLabel.tintColor = [UIColor blueColor];
+
     return cell;
 }
 

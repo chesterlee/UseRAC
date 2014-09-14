@@ -39,7 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.title = @"Signals";
 }
 
 - (void)didReceiveMemoryWarning
@@ -311,7 +311,22 @@
 
 - (IBAction)mixThingsTapped:(id)sender
 {
+    RACSignal *sig = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [subscriber sendNext:@"test"];
+//        [subscriber sendCompleted];
+        return [RACDisposable disposableWithBlock:^{
+            NSLog(@"oh haha!");
+        }];
+    }];
     
+    RACDisposable *dispose = [sig subscribeNext:^(id x){
+        NSLog(@"tt");
+    } completed:^{
+        NSLog(@"complete");
+    }];
+    
+    [dispose dispose];
+    NSLog(@"t");
 }
 
 
