@@ -31,6 +31,7 @@
 		03AF204419C2F88300C705CF /* NetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AF204319C2F88300C705CF /* NetworkViewController.m */; };
 		0F46F3158F924FD5BEBC83BD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9BA43EF24D4CAF8ACDCAC2 /* libPods.a */; };
 		D8980F8C19C1F94700D70747 /* EventHandleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8980F8B19C1F94700D70747 /* EventHandleViewController.m */; };
+		D8C7050D1A1CE33800F7AB3C /* ReplaysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C7050C1A1CE33800F7AB3C /* ReplaysViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,8 @@
 		C3375D7A8FEF4053BF99E51D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D8980F8A19C1F94700D70747 /* EventHandleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandleViewController.h; sourceTree = "<group>"; };
 		D8980F8B19C1F94700D70747 /* EventHandleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventHandleViewController.m; sourceTree = "<group>"; };
+		D8C7050B1A1CE33800F7AB3C /* ReplaysViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaysViewController.h; sourceTree = "<group>"; };
+		D8C7050C1A1CE33800F7AB3C /* ReplaysViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaysViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +233,8 @@
 				03AF203D19C2F86400C705CF /* SignalBasicViewController.m */,
 				03AF204219C2F88300C705CF /* NetworkViewController.h */,
 				03AF204319C2F88300C705CF /* NetworkViewController.m */,
+				D8C7050B1A1CE33800F7AB3C /* ReplaysViewController.h */,
+				D8C7050C1A1CE33800F7AB3C /* ReplaysViewController.m */,
 			);
 			name = MoreVC;
 			sourceTree = "<group>";
@@ -382,6 +387,7 @@
 				03AF203B19C2F46500C705CF /* MoreSampleTableViewController.m in Sources */,
 				03AF203E19C2F86400C705CF /* SignalBasicViewController.m in Sources */,
 				03AF203219C2BFE400C705CF /* RACCategoryViewController.m in Sources */,
+				D8C7050D1A1CE33800F7AB3C /* ReplaysViewController.m in Sources */,
 				03AD649919C19F1200907782 /* MenuViewController.m in Sources */,
 				D8980F8C19C1F94700D70747 /* EventHandleViewController.m in Sources */,
 				03AD649C19C1A2A700907782 /* VMRelateViewController.m in Sources */,
